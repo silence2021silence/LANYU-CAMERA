@@ -45,4 +45,13 @@
 // #define HREF_GPIO_NUM     23
 // #define PCLK_GPIO_NUM     22
 
+#define SET_CONTRAST_KEY     0
+#define SET_BRIGHTNESS_KEY   3
+#define SET_SATURATION_KEY   45
+#define SET_SHARPNESS_KEY    46
+
+void Camera_Init(void);
+void Jpeg2Serial(void);
+void Camera_Adjuster(void);
+
 #endif
