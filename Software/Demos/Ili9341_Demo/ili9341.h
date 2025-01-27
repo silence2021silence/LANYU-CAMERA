@@ -30,7 +30,9 @@ void LCD_Write_Cmd(int8_t data);
 void LCD_Write_Data(int8_t data);
 void LCD_Write_GRAM_16bit(int16_t data);
 void LCD_Init(void);
+void LCD_Set_Display_Dir(uint8_t dir);
 void LCD_Set_Window(int16_t start_x,int16_t start_y,int16_t end_x,int16_t end_y);
 void LCD_Clear(uint16_t color);
+void LCD_ShowPic_16bit(uint16_t x, uint16_t y, uint16_t pic_width, uint16_t pic_height, const uint8_t *pic);
 
 #endif
