@@ -15,7 +15,7 @@ void LCD_HardwareSPI_Init(void)
   fspi->beginTransaction(SPISettings(40000000, MSBFIRST, SPI_MODE0));
 }
 
-void LCD_Write_SPI(int8_t data)
+void LCD_Write_SPI(uint8_t data)
 {
   LCD_CS_LOW;
   fspi->transfer(data);
@@ -23,21 +23,21 @@ void LCD_Write_SPI(int8_t data)
 }
 
 // 写命令
-void LCD_Write_Cmd(int8_t data)
+void LCD_Write_Cmd(uint8_t data)
 {
   LCD_DC_LOW;
   LCD_Write_SPI(data);
 }
 
 // 写数据
-void LCD_Write_Data(int8_t data)
+void LCD_Write_Data(uint8_t data)
 {
   LCD_DC_HIGH;
   LCD_Write_SPI(data);
 }
 
 // 写显存
-void LCD_Write_GRAM_16bit(int16_t data)
+void LCD_Write_GRAM_16bit(uint16_t data)
 {
   LCD_Write_Data(data>>8);
   LCD_Write_Data(data);
@@ -233,7 +233,7 @@ void LCD_Clear(uint16_t color)
 // pic_width:图片宽度
 // pic_height:图片高度
 // pic:图片数据
-void LCD_ShowPic_16bit(uint16_t x, uint16_t y, uint16_t pic_width, uint16_t pic_height, const uint8_t *pic)
+void LCD_ShowPic_16bit(int16_t x, int16_t y, uint16_t pic_width, uint16_t pic_height, const uint8_t *pic)
 {
   int i;
   uint8_t picH, picL;
@@ -243,6 +243,7 @@ void LCD_ShowPic_16bit(uint16_t x, uint16_t y, uint16_t pic_width, uint16_t pic_
   {
     picH = *(pic+i*2);
     picL = *(pic+i*2+1);
-    LCD_Write_GRAM_16bit(picH<<8|picL);
+    LCD_Write_GRAM_16bit(picH<<8|picL);  // 高位在前(MSB First/big-endian)
+		// LCD_Write_GRAM_16bit(picL<<8|picH);  // 低位在前(LSB First/little-endian)
   }
 }
